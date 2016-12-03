@@ -1,0 +1,11 @@
+default.name=HypeGuys Multichain                   # name to display in the web interface
+default.rpchost=192.168.99.100              # IP address of MultiChain node
+default.rpcport=7575                  # see rpc-port from chain parameters
+default.rpcuser=multichainrpc          # username for RPC from multichain.conf
+default.rpcpassword=7FfYPFJ3w38VUftQ6uFeZsZUNcn41gYFJFnnoYRZdxKs                   # password for RPC from multichain.conf
+
+# You can configure support for other nodes using a word other than 'default':
+#
+# another.name=...
+# another.rpchost=...
+# ...etc...
