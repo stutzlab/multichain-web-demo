@@ -7,8 +7,6 @@
   $upload=@$_FILES['upload'];
   $upload_file=@$upload['tmp_name'];
 
-  var_dump($upload);
-
   if (strlen($upload_file)) {
     $upload_size=filesize($upload_file);
 

@@ -1,3 +1,8 @@
+# Dockerized and API like version
+
+This version has been "Dockerized", so the config.txt was replaced by ENVIRONMENT variables, so you can pass the Multichain RPC connection using ENVIRONMENT vars in docker-compose.yml. The limitation is that you can connect to only one chain. In fact, this limitation is more aligned to the microservice mindset.
+
+
 MultiChain Web Demo
 ===================
 
@@ -56,7 +61,7 @@ If you do not yet have a chain to work with, [Download MultiChain](http://www.mu
 
     multichain-util create chain1
     multichaind chain1 -daemon
-    
+
 If your web server is running on the same computer as `multichaind`, you can skip the rest of this section. Otherwise:
 
     multichain-cli chain1 stop
@@ -64,9 +69,9 @@ If your web server is running on the same computer as `multichaind`, you can ski
 Then add this to `~/.multichain/chain1/multichain.conf`:
 
     rpcallowip=[IP address of your web server]
-  
+
 Then start MultiChain again:
-  
+
     multichaind chain1 -daemon
 
 
@@ -80,11 +85,11 @@ Make your life easy for the next step by running these on the node's server:
 
     cat ~/.multichain/chain1/multichain.conf
     grep rpc-port ~/.multichain/chain1/params.dat
-    
+
 In the web demo directory, copy the `config-example.txt` file to `config.txt`:
 
 	cp config-example.txt config.txt
-  
+
 In the demo website directory, enter chain details in `config.txt` e.g.:
 
     default.name=Default                # name to display in the web interface
