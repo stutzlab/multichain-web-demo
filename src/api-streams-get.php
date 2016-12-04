@@ -1,33 +1,29 @@
 <?php
 
-  header('Content-type:application/json;charset=utf-8');
-
-  require_once 'functions.php';
-
-  define('const_max_retrieve_items', 5000);
-
-  $config=read_config();
-  $chain=@$_GET['chain'];
-  if (strlen($chain))
-    $name=@$config[$chain]['name'];
-  else {
-    http_response_code(400);
-    echo 'Missing chain name in the request. Please provide the query parameter `chain` with the chain name.';
-    return;
-  }
-
-  set_multichain_chain($config[$chain]);
+  require_once 'api-header.php';
 
   no_displayed_error_result($liststreams, multichain('liststreams', '*', true));
 
+  //- 1 - List All Streams
+  if (!isset($_GET['stream'])) {
+    echo json_encode($liststreams);
+    return;
+  }
 
+  //- 2 - List all the ITEMS for a given stream NAME and other filters, such as KEY
   foreach ($liststreams as $stream) {
-		if ($_GET['stream']==$stream['name']) {
-      echo json_encode($stream);
+    if ($_GET['stream']==$stream['name']) {
+
+      if (isset($_GET['key']))
+        $success=no_displayed_error_result($items, multichain('liststreamkeyitems', $stream['createtxid'], $_GET['key'], true, const_max_retrieve_items));
+      elseif (isset($_GET['publisher']))
+        $success=no_displayed_error_result($items, multichain('liststreampublisheritems', $stream['createtxid'], $_GET['publisher'], true, const_max_retrieve_items));
+      else
+        $success=no_displayed_error_result($items, multichain('liststreamitems', $stream['createtxid'], true, const_max_retrieve_items));
+
+      echo json_encode($items);
       return;
     }
-	}
+  }
 
-  echo json_encode($liststreams);
-  return;
 ?>
